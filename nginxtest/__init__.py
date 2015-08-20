@@ -1,4 +1,4 @@
-__version__ = '0.1'
+__version__ = '0.1-yola1'
 
 try:
     from nginxtest.server import NginxServer       # NOQA
