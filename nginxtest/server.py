@@ -81,8 +81,8 @@ class NginxServer(object):
 
         if resp is None or resp.status_code != 200:
             self.stop()
-            print(self._p.stdout.read(), file=sys.stdout)
-            print(self._p.stderr.read(), file=sys.stderr)
+            sys.stdout.write(self._p.stdout.read())
+            sys.stderr.write(self._p.stderr.read())
             if resp is None:
                 raise IOError('Failed to start Nginx')
             else:
@@ -95,8 +95,8 @@ class NginxServer(object):
         self._p.terminate()
         time.sleep(.2)
         try:
-            print(self._p.stdout.read(), file=sys.stdout)
-            print(self._p.stderr.read(), file=sys.stderr)
+            sys.stdout.write(self._p.stdout.read())
+            sys.stderr.write(self._p.stderr.read())
             os.chdir(self.cwd)
             shutil.rmtree(self.wdir)
         finally:
