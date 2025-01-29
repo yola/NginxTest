@@ -65,7 +65,8 @@ class NginxServer(object):
         os.chdir(self.wdir)
         self._p = subprocess.Popen(shlex.split(self.cmd),
                                    stderr=subprocess.PIPE,
-                                   stdout=subprocess.PIPE)
+                                   stdout=subprocess.PIPE,
+                                   universal_newlines=True)
         time.sleep(.1)
 
         # sanity check
@@ -80,8 +81,8 @@ class NginxServer(object):
 
         if resp is None or resp.status_code != 200:
             self.stop()
-            sys.stdout.write(self._p.stdout.read())
-            sys.stderr.write(self._p.stderr.read())
+            print(self._p.stdout.read(), file=sys.stdout)
+            print(self._p.stderr.read(), file=sys.stderr)
             if resp is None:
                 raise IOError('Failed to start Nginx')
             else:
@@ -94,9 +95,10 @@ class NginxServer(object):
         self._p.terminate()
         time.sleep(.2)
         try:
-            sys.stdout.write(self._p.stdout.read())
-            sys.stderr.write(self._p.stderr.read())
+            print(self._p.stdout.read(), file=sys.stdout)
+            print(self._p.stderr.read(), file=sys.stderr)
             os.chdir(self.cwd)
             shutil.rmtree(self.wdir)
         finally:
             os.kill(self._p.pid, 9)
+
