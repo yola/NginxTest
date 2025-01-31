@@ -1,4 +1,4 @@
-__version__ = '0.2-rc1'
+__version__ = '1.0.0'
 
 try:
     from nginxtest.server import NginxServer       # NOQA
