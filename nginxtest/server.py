@@ -101,4 +101,3 @@ class NginxServer(object):
             shutil.rmtree(self.wdir)
         finally:
             os.kill(self._p.pid, 9)
-
