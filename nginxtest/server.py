@@ -65,7 +65,8 @@ class NginxServer(object):
         os.chdir(self.wdir)
         self._p = subprocess.Popen(shlex.split(self.cmd),
                                    stderr=subprocess.PIPE,
-                                   stdout=subprocess.PIPE)
+                                   stdout=subprocess.PIPE,
+                                   universal_newlines=True)
         time.sleep(.1)
 
         # sanity check
